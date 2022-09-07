@@ -18,5 +18,6 @@ export const getNews = async (category, country) => {
     return response.data.articles;
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 };
