@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import About from './pages/About';
+import { useContext, useEffect } from 'react';
+import { getNews } from './context/NewsActions';
+import NewsContext from './context/NewsContext';
 
-function App() {
+const App = () => {
+  const { category, country, dispatch } = useContext(NewsContext);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      dispatch({ type: 'SET_LOADING' });
+      const news = await getNews(category, country);
+      dispatch({ type: 'SET_NEWS', payload: news });
+    };
+
+    fetchNews();
+  }, [category, country, dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <main>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+      </main>
+    </>
   );
-}
+};
 
 export default App;
