@@ -8,10 +8,10 @@ import { NewsProvider } from './context/NewsContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <NewsProvider>
-      <Router>
+    <Router>
+      <NewsProvider>
         <App />
-      </Router>
-    </NewsProvider>
+      </NewsProvider>
+    </Router>
   </React.StrictMode>
 );
